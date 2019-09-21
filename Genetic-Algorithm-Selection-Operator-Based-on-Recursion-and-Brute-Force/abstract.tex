@@ -1,0 +1,45 @@
+\documentclass{article}
+
+\usepackage{times}
+\usepackage[utf8]{inputenc}
+
+\textwidth 130mm
+\textheight 188mm
+\footskip 8mm
+\parindent 0in
+\newcommand{\writetitle}[2]{
+\addcontentsline{toc}{part}{\normalsize{{\it #2}\\#1}\vspace{-17pt}}\vskip 2em
+
+\begin{center}{\Large {\bf #1} \par}\vskip 1em{\large\lineskip .5em{\bf #2}\par}
+\end{center}\vskip .5em}
+	
+\begin{document}
+
+\writetitle{Genetic Algorithm Selection Operator \\ Based on Recursion and Brute-Force}
+{Petar Tomov, Iliyan Zankinski, Todor Balabanov, \\ Plamen Petrov, Georgy Kostadinov}
+% Institute of Information and Communication Technologies
+% Bulgarian Academy of Sciences
+% acad. Georgi Bonchev Str., block 2, office 514, 1113 Sofia, Bulgaria
+% iict@bas.bg
+% http://www.iict.bas.bg/
+
+\underline{Introduction} 
+%
+Genetic algorithms are global optimization meta-heuristics inspired by the ideas in the neutral evolution. Optimization process is organized in three common operations - selection, crossover and mutation. Crossover and mutation are responsible for proposition of new solutions into the population when selection is responsible for better choice of parents. During last five decades many selection operators are proposed in the literature - Proportional Selection, Tournament Selection, Rank-Based Selection, Boltzmann Selection, Soft Brood Selection, Disruptive Selection, Nonlinear Ranking Selection and Competitive Selection. This research proposes new selection operator based on recursive generations creation. At each level of recursion all individuals in the population are mate between each other (brute-force) and only the best individual goes up in the recursion levels.
+
+\vspace*{3mm}
+
+\underline{Recursion and Brute-Force} 
+%
+The population in the genetic algorithm is organized as a hierarchical structure. At the lowest level of the tree structure sub-population consists of randomly generated individuals. In each sub-population each individual mates with each other. Only the best produced individual is promoted for the upper level of the recursive structure. In this way each upper sub-population is established by the best individual promoted from the bottom levels. As benchmark Rastrigin and Griewank functions are taken. All experiments are done in 10K dimensional real numbers space. 
+
+\vspace*{3mm}
+
+\underline{Conclusions} 
+%
+This study proposes genetic algorithms selection operator based on recursive trace and brute-force on each level. The experiments clearly shows that the proposed operator is very promising when it is applied in high-dimensional solutions spaces. Because of the high CPU consumption the proposed operator is suitable only in hybrid implementations for example in initial genetic algorithm population initialization. As further research it will be interesting brute-force part of the proposition to be replaced with something much more efficient. 
+
+\vspace*{5mm}
+
+\underline{Acknowledgments} This work was supported by private funding of Velbazhd Software LLC.
+\end{document}
