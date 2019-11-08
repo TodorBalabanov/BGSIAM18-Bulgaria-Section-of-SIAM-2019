@@ -7,9 +7,12 @@
 
 \usepackage{makeidx}
 \usepackage{graphicx}
+\usepackage{placeins}
 
 \usepackage{multicol}
 \usepackage[bottom]{footmisc}
+
+\usepackage{listings}
 
 \makeindex
 
@@ -34,9 +37,181 @@
 
 \maketitle
 
-\abstract*{}
+\abstract*{In the global optimization genetic algorithms are meta-heuristics provoked by the processes in the biological evolution. Calculations are separated in three basic operations - selection, crossover and mutation. First two are engaged in proposition of new individuals into the population when selection is used for better mating of parents. In almost half century different selection operators are introduced in the literature. The most popular are: Proportional Selection, Tournament Selection, Rank-Based Selection, Boltzmann Selection, Soft Brood Selection, Disruptive Selection, Nonlinear Ranking Selection and Competitive Selection. In this study new selection operator based on recursive generations creation is proposed. In every level of recursive descent all local individuals are mate between each other (brute-force) and only the best found individual is sent to the population of the up level.}
 
 \abstract{In the global optimization genetic algorithms are meta-heuristics provoked by the processes in the biological evolution. Calculations are separated in three basic operations - selection, crossover and mutation. First two are engaged in proposition of new individuals into the population when selection is used for better mating of parents. In almost half century different selection operators are introduced in the literature. The most popular are: Proportional Selection, Tournament Selection, Rank-Based Selection, Boltzmann Selection, Soft Brood Selection, Disruptive Selection, Nonlinear Ranking Selection and Competitive Selection. In this study new selection operator based on recursive generations creation is proposed. In every level of recursive descent all local individuals are mate between each other (brute-force) and only the best found individual is sent to the population of the up level.}
+
+\section{Introduction}
+\label{sec:1}
+
+Genetic algorithms\index{genetic algorithms} are a heuristic tool for global optimization [1]. Because many randomly generated numbers are applied to them, genetic algorithms have a stochastic nature and do not guarantee a global optimum. Also, at each startup the results may differ [2], but there are opportunities for effective implementation in the form of parallel calculations [3]. The ideas behind genetic algorithms are borrowed from the theory of natural evolution. A point in a multidimensional space (solution space) is described by a vector. One vector represents one individual in the population of the genetic algorithm [4]. There is no universal theory for determining population size, but most often it is up to 100 individuals [15]. Each individual in the population is subject to an estimate, which is obtained by calculating the target function. The vector of the decision space is fed to the input of the target function and, after its calculation, a single value is obtained. Different tasks may require a minimum or maximum value. The closer the calculated value of the individual to the desired optimum, the better its vitality. More viable individuals are more often chosen to create a generation. The generation of offspring undergoes two operations - crossover and mutation. Crossing helps to crawl the solution space extensively, and mutation helps to finer examine the surroundings of already crossed individuals. Genetic algorithms are subject to research from the middle of the last century, but there are still areas in which their productivity can be improved. The present study focuses on the selection operation and how this operation can improve the search for a global optimum for functions with a large number of local optima.
+
+Parental selection for offspring production can proceed through a number of different strategies [5], which have been extensively explored in the literature on breeding surgery. The most important responsibility in breeding is to make better decisions in the population more often in the hope that they will lead to even better decisions. If parents are chosen at random (Random Search), reaching suboptimal acceptable solutions would be too slow [6]. One of the earliest proposals is Proportional Selection [7]. In this option, each individual in the population receives a probability of crossover proportional to the vital value they have achieved. Another popular option is Tournament Selection [8], in which a subset of randomly selected individuals on a competitive basis only nominate one, the best among them, a candidate. In Rank-based Selection [9], each individual is determined by their likelihood of participating in future offspring by the rank (indirect viability) that is present in the population. Simulated quenching is at the heart of Boltzmann Selection [10]. In this type of selection, the winner is determined after a series of Boltzmann experiments.
+
+There are many varieties or modifications to the above mentioned selection options. This study examines a recursive descent-based selection operation [11] by a hierarchy of generations among which, with total exhaustion, [12] only one individual participates in the higher level of recursion.
+
+The article is further organized as follows: Introduction defining the scope of the study; Proposal for the operation selection with recursion and complete exhaustion; Experiments and results illustrating the proposed operation; Conclusion, with a summary of the research done and suggestions for future development.
+
+\section{Brute-Force and Recursion based Selection Operator}
+\label{sec:2}
+
+This scientific study proposes a selection operation used in genetic algorithms just before recombination operations are performed. In the presence of a population of size n, there are numerous ways to select parental individuals to serve to create a new generation. In most implementations of genetic algorithms, selection is performed on the basis of some calculated probability [16]. In this study, an approach (Listing 1) was chosen at the other extreme, namely that each individual of a particular generation recombines with each other (including himself).
+
+\begin{figure}[b]
+\sidecaption
+\includegraphics[width=1.0\textwidth]{images/fig09}
+\caption{Brute-force based recombination}
+\label{fig:1}
+\end{figure}
+%\FloatBarrier
+
+This recombination selection is completely exhausted and all individuals participate equally, with equal chances of offspring. Of all the newly generated offspring, only one (best) individual is sent one level up (Listing 2) into the hierarchy of recursive calls.
+
+\begin{figure}[b]
+\sidecaption
+\includegraphics[width=1.0\textwidth]{images/fig10}
+\caption{Promotion of best found individual in a particular recursive level}
+\label{fig:2}
+\end{figure}
+%\FloatBarrier
+
+For each level of the hierarchy, a population is populated through individuals sent from the lower level. In this way, each population is populated by a plurality of lower-level individuals. The population at the bottom of the recursion is filled with randomly generated individuals (Listing 3).
+
+\begin{figure}[b]
+\sidecaption
+\includegraphics[width=1.0\textwidth]{images/fig11}
+\caption{Random individuals are created at the bottom of the recursion}
+\label{fig:3}
+\end{figure}
+%\FloatBarrier
+
+Individuals generated at the bottom of the recursion are not evaluated through life function, because it does not matter what the value may be.
+
+\section{Experiments and Results}
+\label{sec:3}
+
+The experiments were performed with a desktop computer system having the following parameters: Intel Core i5, 2.3 GHz, 2 Cores, 8GB RAM and Mac OS X 10.13.6, Oracle Java 1.8.0-91 [13]. For the experiments performed, two functions with multiple local and global optima were selected - Rastrigin (Fig. 1) and Griewank (Fig. 2), which make it difficult to find the global minimum due to the presence of multiple local ones [14].
+
+\begin{figure}[b]
+\sidecaption
+\includegraphics[width=1.0\textwidth]{images/fig01a}
+\caption{Rastrigin function equation}
+\label{fig:4}
+\end{figure}
+%\FloatBarrier
+
+Both selected features have a distinct global minimum. Multiple local lows are available for both functions. In FIG. 1 and 2 show graphs of functions in two-dimensional space. For the experiments performed, the functions are used in a one-dimensional space. The availability of one hundred free variables makes it possible to maximize the use of genetic algorithms to find optimal solutions in multidimensional spaces.
+
+\begin{figure}[b]
+\sidecaption
+\includegraphics[width=1.0\textwidth]{images/fig01b}
+\caption{Rastrigin function in 2D case}
+\label{fig:5}
+\end{figure}
+%\FloatBarrier
+
+In both functions, the presence of a parabolic component defines the shape of the valley, and the cosine gives the shape of local elevations.
+
+\begin{figure}[b]
+\sidecaption
+\includegraphics[width=1.0\textwidth]{images/fig02a}
+\caption{Griewank function equation}
+\label{fig:6}
+\end{figure}
+%\FloatBarrier
+
+The experiments take into account the execution time of the optimization algorithm, the number of estimated individuals in the population, as well as the closest to the optimal solution calculated value.
+
+\begin{figure}[b]
+\sidecaption
+\includegraphics[width=1.0\textwidth]{images/fig02b}
+\caption{Griewank function in 2D case}
+\label{fig:7}
+\end{figure}
+%\FloatBarrier
+
+All experiments were performed under different configurations for depth of recursion and population size at each hierarchical level in recursive calls. Values from 2 to 8 were examined as the depth of recursion and values from 2 to 11 were studied as population size (Tables 1 and 2).
+
+\begin{figure}[b]
+\sidecaption
+\includegraphics[width=1.0\textwidth]{images/fig12}
+\caption{Rastrigin measured results}
+\label{fig:8}
+\end{figure}
+%\FloatBarrier
+
+\begin{figure}[b]
+\sidecaption
+\includegraphics[width=1.0\textwidth]{images/fig13}
+\caption{Griewank measured results}
+\label{fig:9}
+\end{figure}
+%\FloatBarrier
+
+From the results presented, it is clear that with increasing population size and recursion depth, the proposed selection operation leads to solutions that are closer to the global optimum. Because at each hierarchical level each individual intersects with each other, this leads to too much time consumption and asymptotic complexity of $O(n^2)$, for n individuals in one generation.
+
+\begin{figure}[b]
+\sidecaption
+\includegraphics[width=1.0\textwidth]{images/fig03}
+\caption{Rastrigin sub-optimal solutions found}
+\label{fig:10}
+\end{figure}
+%\FloatBarrier
+
+\begin{figure}[b]
+\sidecaption
+\includegraphics[width=1.0\textwidth]{images/fig04}
+\caption{Rastrigin optimization time in milliseconds}
+\label{fig:11}
+\end{figure}
+%\FloatBarrier
+
+\begin{figure}[b]
+\sidecaption
+\includegraphics[width=1.0\textwidth]{images/fig05}
+\caption{Rastrigin number of evaluated individuals}
+\label{fig:12}
+\end{figure}
+%\FloatBarrier
+
+\begin{figure}[b]
+\sidecaption
+\includegraphics[width=1.0\textwidth]{images/fig06}
+\caption{Griewank sub-optimal solutions found}
+\label{fig:13}
+\end{figure}
+%\FloatBarrier
+
+\begin{figure}[b]
+\sidecaption
+\includegraphics[width=1.0\textwidth]{images/fig07}
+\caption{Griewank optimization time in milliseconds}
+\label{fig:14}
+\end{figure}
+%\FloatBarrier
+
+\begin{figure}[b]
+\sidecaption
+\includegraphics[width=1.0\textwidth]{images/fig08}
+\caption{Griewank number of evaluated individuals}
+\label{fig:15}
+\end{figure}
+%\FloatBarrier
+
+In Fig. 3 shows the suboptimal values achieved for the Rastrigin function, and in a similar manner Fig. 6 shows the suboptimal values achieved for the Griewank function. In Fig. 4 and 7 graphically depict the computational time used to search for optimals for both functions. In terms of the number of individuals evaluated, the experiments for the two functions do not differ, as can be seen from FIG. 5 and 8.
+
+Despite the complexity of the two test functions, the graphs clearly show that the more individuals are generated and evaluated, the greater the approximation to the global optimum.
+
+\section{Conclusions}
+\label{sec:4}
+
+This study proposes a genetic algorithm selection operation that is based on recursive descent and complete depletion for each level of recursion. The experiments conducted clearly show that this type of selection operation gives promising results for the search for suboptimal solutions in problems characterized by many local optima. Due to too much computation time, this type of selection operation is best used in hybrid algorithms, where the initial population is not randomly generated but generated precisely by recursive selection and complete recombination in the individual levels of hierarchical invocation.
+
+As a guide for future research, it would be appropriate to look for alternatives to complete depletion, which would reduce computational time.
+
+\begin{acknowledgement}
+This work was supported by a private funding of Velbazhd Software LLC. 
+\end{acknowledgement}
 
 \input{references}
 \end{document}
