@@ -1,0 +1,42 @@
+\documentclass[graybox]{styles/svmult}
+
+\usepackage{mathptmx}
+\usepackage{helvet}
+\usepackage{courier}
+\usepackage{type1cm}
+
+\usepackage{makeidx}
+\usepackage{graphicx}
+
+\usepackage{multicol}
+\usepackage[bottom]{footmisc}
+
+\makeindex
+
+\begin{document}
+
+\title*{Genetic Algorithm Selection Operator \\ Based on Recursion and Brute-Force}
+\titlerunning{GA Selection with Recursion \& Brute-Force}
+
+\author{Petar Tomov, Iliyan Zankinski, Todor Balabanov}
+\authorrunning{P. Tomov et al.} 
+
+\institute{Petar Tomov \at Institute of Information and Communication Technologies - Bulgarian Academy of Sciences \\ acad. Georgi Bonchev Str., block 2, 1113 Sofia, Bulgaria \email{p.tomov@iit.bas.bg}
+\and Iliyan Zankinski \at Institute of Information and Communication Technologies - Bulgarian Academy of Sciences \\ acad. Georgi Bonchev Str., block 2, 1113 Sofia, Bulgaria \email{iliyan@hsi.iccs.bas.bg}
+\and Todor Balabanov \textsuperscript{0000-0003-3139-069X} \at Institute of Information and Communication Technologies - Bulgarian Academy of Sciences \\ acad. Georgi Bonchev Str., block 2, 1113 Sofia, Bulgaria \email{todorb@iinf.bas.bg}}
+%
+% Institute of Information and Communication Technologies
+% Bulgarian Academy of Sciences
+% acad. Georgi Bonchev Str., block 2, office 514, 1113 Sofia, Bulgaria
+% iict@bas.bg
+% http://www.iict.bas.bg/
+%
+
+\maketitle
+
+\abstract*{}
+
+\abstract{In the global optimization genetic algorithms are meta-heuristics provoked by the processes in the biological evolution. Calculations are separated in three basic operations - selection, crossover and mutation. First two are engaged in proposition of new individuals into the population when selection is used for better mating of parents. In almost half century different selection operators are introduced in the literature. The most popular are: Proportional Selection, Tournament Selection, Rank-Based Selection, Boltzmann Selection, Soft Brood Selection, Disruptive Selection, Nonlinear Ranking Selection and Competitive Selection. In this study new selection operator based on recursive generations creation is proposed. In every level of recursive descent all local individuals are mate between each other (brute-force) and only the best found individual is sent to the population of the up level.}
+
+\input{references}
+\end{document}
